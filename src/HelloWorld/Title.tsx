@@ -8,11 +8,13 @@ import {
 	useVideoConfig,
 } from 'remotion';
 import {getTTSFromServer} from '../lib/client-utils';
+import {voices} from '../server/TextToSpeech/constants';
 
 export const Title: React.FC<{
 	titleText: string;
 	titleColor: string;
-}> = ({titleText, titleColor}) => {
+	voice: keyof typeof voices;
+}> = ({titleText, titleColor, voice}) => {
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
 	const text = titleText.split(' ').map((t) => ` ${t} `);
@@ -21,12 +23,12 @@ export const Title: React.FC<{
 	const [audioUrl, setAudioUrl] = useState('');
 
 	const fetchTts = useCallback(async () => {
-		const url = await getTTSFromServer(titleText, 'enUSWoman1');
+		const url = await getTTSFromServer(titleText, voice || 'enUSWoman1');
 
 		setAudioUrl(url);
 
 		continueRender(handle);
-	}, [handle, titleText]);
+	}, [handle, titleText, voice]);
 
 	useEffect(() => {
 		fetchTts();

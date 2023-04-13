@@ -12,4 +12,4 @@ export const voices = {
 	enUSMan2: {name: 'en-US-Neural2-J', languageCode: 'en-US'},
 	enUSWoman1: {name: 'en-US-Neural2-H', languageCode: 'en-US'},
 	enUSWoman2: {name: 'en-US-Neural2-F', languageCode: 'en-US'},
-} as const;
+};
