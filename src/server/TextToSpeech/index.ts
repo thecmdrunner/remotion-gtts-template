@@ -5,14 +5,9 @@ import {
 	checkIfAudioHasAlreadyBeenSynthesized as isAudioAlreadySynthesized,
 	createFirebaseUrl,
 	uploadFileToFirebase,
-} from '../lib/firebase/utils';
-import {audioDirectoryInBucket} from './constants';
+} from '../../lib/firebase/utils';
+import {audioDirectoryInBucket, voices} from './constants';
 import textToSpeech from '@google-cloud/text-to-speech';
-
-const voices = {
-	enUSMan1: {name: 'en-US-Standard-D', languageCode: 'en-US'},
-	enUSWoman1: {name: 'en-US-Standard-F', languageCode: 'en-US'},
-} as const;
 
 const client = new textToSpeech.TextToSpeechClient({
 	credentials: {
@@ -29,21 +24,11 @@ export const createTextToSpeechAudio = async (
 	if (!voices[voice]) throw new Error('Voice not found');
 	const selectedVoice = voices[voice];
 
-	const ssml = `
-	<speak>
-<emphasis level="strong"></emphasis>
-<break time="200ms"/> or not to be, <break time="400ms"/>
-<emphasis level="moderate">that</emphasis>
-is the question.<break time="400ms"/>
-Whether ‘tis nobler in the mind to suffer
-The slings and arrows of outrageous fortune,<break time="200ms"/>
-Or to take arms against a sea of troubles
-And by opposing end them.
-</speak>`;
+	const ssml = `<speak><emphasis level="strong">${text}</emphasis></speak>`;
 
 	/**
 	 * * Determine directory name from SSML, directory in bucket, and voice name, to make a really unique fileName.
-	 * * Not hashing anything but SSML makes refactoring easy in Firebase storage.
+	 * * Only hashing the SSML makes it easy to find specific voice audios in Firebase storage.
 	 */
 	const ssmlHash = md5(ssml);
 	const filePathInBucket = `${audioDirectoryInBucket}/${selectedVoice.name}-${ssmlHash}.mp3`;
@@ -54,7 +39,9 @@ And by opposing end them.
 
 	// Create the TTS audio
 	const [response] = await client.synthesizeSpeech({
-		input: {ssml},
+		input: {
+			ssml,
+		},
 		voice: {
 			name: selectedVoice.name,
 			languageCode: selectedVoice.languageCode,
@@ -67,12 +54,12 @@ And by opposing end them.
 		},
 	});
 	// Upload the file to firebase
-	const fileUploaded = await uploadFileToFirebase(
+	const uploadedFile = await uploadFileToFirebase(
 		response.audioContent as Uint8Array,
 		filePathInBucket
 	);
 
-	const fullPathOfUploadedFile = fileUploaded.metadata.fullPath;
+	const {fullPath} = uploadedFile.metadata;
 
-	return createFirebaseUrl(fullPathOfUploadedFile);
+	return createFirebaseUrl(fullPath);
 };

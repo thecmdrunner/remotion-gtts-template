@@ -34,6 +34,7 @@ export const checkIfAudioHasAlreadyBeenSynthesized = async (
 
 		// Return URL for download
 		const url = await getDownloadURL(ref(storage, filePath));
+		console.log(`DEBUG: File exists! 🥳`);
 		return url;
 	} catch {
 		return false;

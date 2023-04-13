@@ -7,7 +7,7 @@ import {
 	useCurrentFrame,
 	useVideoConfig,
 } from 'remotion';
-import {createTextToSpeechAudio} from '../TextToSpeech';
+import {getTTSFromServer} from '../lib/client-utils';
 
 export const Title: React.FC<{
 	titleText: string;
@@ -21,7 +21,7 @@ export const Title: React.FC<{
 	const [audioUrl, setAudioUrl] = useState('');
 
 	const fetchTts = useCallback(async () => {
-		const url = await createTextToSpeechAudio(titleText, 'enUSWoman1');
+		const url = await getTTSFromServer(titleText, 'enUSWoman1');
 
 		setAudioUrl(url);
 

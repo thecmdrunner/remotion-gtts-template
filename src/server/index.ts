@@ -1,32 +1,44 @@
 /**
- * * Perhaps could use express server instead?
- * * just like this template: https://github.com/remotion-dev/template-still
+ * * Trying to use express server just like this template: https://github.com/remotion-dev/template-still
  */
 
-// import dotenv from 'dotenv';
-// import express from 'express';
-// import rateLimit from 'express-rate-limit';
-// import fs from 'fs';
-// import os from 'os';
-// import path from 'path';
-// import md5 from 'md5';
+import express from 'express';
+import rateLimit from 'express-rate-limit';
+import {createTextToSpeechAudio} from './TextToSpeech';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import {FALLBACK_RANDOM_AUDIO} from './TextToSpeech/constants';
+import {ServerResponse} from '../lib/interfaces';
 
-// dotenv.config();
+dotenv.config();
 
-// const app = express();
-// const port = process.env.PORT || 8000;
+const app = express();
+const port = process.env.SERVER_PORT || 5050;
 
-// const tmpDir = fs.promises.mkdtemp(path.join(os.tmpdir(), 'remotion-'));
+// Const tmpDir = fs.promises.mkdtemp(path.join(os.tmpdir(), 'remotion-'));
 
-// // This setting will reveal the real IP address of the user, so we can apply rate limiting.
-// app.set('trust proxy', 1);
+// This setting will reveal the real IP address of the user, so we can apply rate limiting.
+app.set('trust proxy', 1);
 
-// // Not more than 20 requests per minute per user
-// app.use(
-// 	rateLimit({
-// 		windowMs: 1 * 60 * 1000,
-// 		max: 20,
-// 	})
-// );
+app.use(express.json());
+app.use(cors({origin: '*'}));
 
-// app.listen(port);
+// Not more than 60 requests per minute per user
+app.use(rateLimit({windowMs: 1 * 60 * 1000, max: 60}));
+
+app.post(`/getdata`, async (req, res) => {
+	try {
+		const {text, voice} = req.body;
+
+		const audioURL = await createTextToSpeechAudio(text, voice);
+
+		return res.json({url: audioURL} as ServerResponse).end();
+	} catch (err) {
+		console.error(err);
+		return res.json({url: FALLBACK_RANDOM_AUDIO} as ServerResponse).end();
+	}
+});
+
+app.listen(port, () => {
+	console.log(`DEBUG: Umm audio server actually listening on ${port}`);
+});

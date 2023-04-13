@@ -38,13 +38,13 @@ export const RemotionRoot: React.FC = () => {
 			<Composition
 				id="HelloWorld"
 				component={HelloWorld}
-				durationInFrames={150}
+				durationInFrames={300}
 				fps={30}
 				width={1920}
 				height={1080}
 				defaultProps={{
 					titleText:
-						'Remotion Text to speech, working with Firebase + Google Cloud.',
+						'Text to speech on Remotion v4, working with Firebase + Google Cloud, with realtime text changes...',
 					titleColor: 'black',
 				}}
 			/>
