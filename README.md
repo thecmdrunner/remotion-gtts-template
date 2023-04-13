@@ -9,46 +9,90 @@
   </a>
 </p>
 
+## PROBLEMS TO FIX:
+
+1. Must kill the express server after render finishes.
+
 Welcome to your TTS Remotion project!
 
 ## Get Started
 
-- Create Azure Account
-- Create TTS service on Azure
-- Create AWS Account
-- Setup S3 Bucket with public access
-  - Configure bucket policy
-    ```json
-    {
-    	"Version": "2008-10-17",
-    	"Statement": [
-    		{
-    			"Sid": "AllowPublicRead",
-    			"Effect": "Allow",
-    			"Principal": {
-    				"AWS": "*"
-    			},
-    			"Action": "s3:GetObject",
-    			"Resource": "arn:aws:s3:::<YOUR-BUCKET-NAME>/*"
-    		}
-    	]
+1. Create Firebase Project
+   ![Create project](./assets/firebase-create.png)
+
+2. Go to Project Settings. In the "General" tab, go to "Your apps" section and register a "Web App".
+
+<!-- VIDEO -->
+
+/assets/firebase-register.mp4
+
+3. Copy the config credentials and paste into `.env`
+
+4. Enable storage, create storage bucket, and edit rules to allow read, write for `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
+
+<!-- VIDEO -->
+
+/assets/firebase-storage-enable.mp4
+
+- Configure bucket rules
+
+```js
+  rules_version = '2';
+  service firebase.storage {
+    match /b/{bucket}/o {
+      match /remotion-gtts/{allPaths=**} {
+        allow read, write: if true;
+      }
     }
-    ```
-  - Configure bucket CORS
-    - Use it only as a template, we recommend you to edit "AllowedOrigins" entering your origin
-    ```json
-    [
-    	{
-    		"AllowedHeaders": ["*"],
-    		"AllowedMethods": ["HEAD", "GET", "PUT", "POST", "DELETE"],
-    		"AllowedOrigins": ["*"],
-    		"ExposeHeaders": ["ETag", "x-amz-meta-custom-header"]
-    	}
-    ]
-    ```
-- Copy `.env.example` to `.env` entering your secrets
-  - ⚠️ Ensure your AWS credentials only allow reading and uploading to a specific S3 bucket `s3:GetObject` and `s3:PutObject` to not compromise your credentials if you deploy your Remotion project
-- Use method `textToSpeech` from `src/TextToSpeech/tts.ts` to convert Text to Audio, this method will return file url, you can use it as source of `<Audio />` component
+  }
+```
+
+> Maybe you should have better security validation instead of just allowing `write` to everyone.
+
+![Create rules](./assets/firebase-storage-rules.png)
+
+5. Enable TTS API on GCP
+
+- You will probably already have a project set up in GCP with the same name as the Firebase project you created earlier. Just use that, to keep things simple.
+
+- Open hambuger menu, go to APIs and Services -> Library
+- Search for "text to speech", and enable **Cloud Text-to-Speech API**. You may be required to enable billing, by creating a billing account. (Be sure to also review the pricing tab)
+
+![Create credentials](/assets/gcp-enable-api.png)
+
+<!-- VIDEO -->
+
+/assets/gcp-enable-api.mp4
+
+6. Create Credentials
+
+- After API is enabled, click on **Manage** -> **Credentials** (on sidebar)
+
+![Create credentials](/assets/gcp-manage-api.png)
+
+- Click on **CREATE CREDENTIALS** and select Service Account
+
+![Create credentials](/assets/gcp-create-credentials.png)
+
+- Fill relevant fields, select the _Basic_ role of **_Owner_**, and skip the other optional fields if not required.
+
+<!-- VIDEO -->
+
+/assets/gcp-create-serviceaccount.mp4
+
+- Now create a JSON key to download credentials as a `.json` file.
+
+<!-- VIDEO -->
+
+/assets/gcp-create-key.mp4
+
+- Name the JSON file as `serviceaccount.json` and place it in the root of your project - `/serviceaccount.json`
+
+> **IMPORTANT:** This file must never be committed, and must be added to .gitignore, .dockerignore, etc. if you change its name to something different.
+
+> If you change the location of this file, make sure to also update `GOOGLE_APPLICATION_CREDENTIALS` in `.env`
+
+7. Copy `.env.example` to `.env` and enter your secrets.
 
 ## Example
 

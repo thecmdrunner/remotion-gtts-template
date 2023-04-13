@@ -9,13 +9,7 @@ import {
 import {audioDirectoryInBucket, voices} from './constants';
 import textToSpeech from '@google-cloud/text-to-speech';
 
-const client = new textToSpeech.TextToSpeechClient({
-	credentials: {
-		private_key: process.env.GOOGLE_CLOUD_PRIVATE_KEY,
-		client_email: process.env.GOOGLE_CLOUD_CLIENT_EMAIL,
-		client_id: process.env.GOOGLE_CLOUD_CLIENT_ID,
-	},
-});
+const client = new textToSpeech.TextToSpeechClient();
 
 export const createTextToSpeechAudio = async (
 	text: string,

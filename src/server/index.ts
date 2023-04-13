@@ -15,8 +15,6 @@ dotenv.config();
 const app = express();
 const port = process.env.SERVER_PORT || 5050;
 
-// Const tmpDir = fs.promises.mkdtemp(path.join(os.tmpdir(), 'remotion-'));
-
 // This setting will reveal the real IP address of the user, so we can apply rate limiting.
 app.set('trust proxy', 1);
 
@@ -40,5 +38,5 @@ app.post(`/getdata`, async (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`DEBUG: Umm audio server actually listening on ${port}`);
+	console.log(`TTS server listening on ${port}`);
 });

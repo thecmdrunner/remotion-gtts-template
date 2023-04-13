@@ -2,36 +2,38 @@ import {Composition} from 'remotion';
 import {HelloWorld} from './HelloWorld';
 
 export const RemotionRoot: React.FC = () => {
-	// If (!process.env.AZURE_TTS_KEY) {
-	// 	throw new Error(
-	// 		'AZURE_TTS_KEY environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
-	// if (!process.env.AZURE_TTS_REGION) {
-	// 	throw new Error(
-	// 		'AZURE_TTS_REGION environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
-	// if (!process.env.AWS_S3_BUCKET_NAME) {
-	// 	throw new Error(
-	// 		'AWS_S3_BUCKET_NAME environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
-	// if (!process.env.AWS_S3_REGION) {
-	// 	throw new Error(
-	// 		'AWS_S3_REGION environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
-	// if (!process.env.AWS_ACCESS_KEY_ID) {
-	// 	throw new Error(
-	// 		'AWS_ACCESS_KEY_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
-	// if (!process.env.AWS_SECRET_ACCESS_KEY) {
-	// 	throw new Error(
-	// 		'AWS_SECRET_ACCESS_KEY environment variable is missing. Read the instructions in README.md file and complete the setup.'
-	// 	);
-	// }
+	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
+		throw new Error(
+			'GOOGLE_APPLICATION_CREDENTIALS environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+
+	if (!process.env.FIREBASE_API_KEY)
+		throw new Error(
+			'FIREBASE_API_KEY environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+	if (!process.env.FIREBASE_AUTH_DOMAIN)
+		throw new Error(
+			'FIREBASE_AUTH_DOMAIN environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+
+	if (!process.env.FIREBASE_PROJECT_ID)
+		throw new Error(
+			'FIREBASE_PROJECT_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+	if (!process.env.FIREBASE_STORAGE_BUCKET)
+		throw new Error(
+			'FIREBASE_STORAGE_BUCKET environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+
+	if (!process.env.FIREBASE_MESSAGING_SENDER_ID)
+		throw new Error(
+			'FIREBASE_MESSAGING_SENDER_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
+
+	if (!process.env.FIREBASE_APP_ID)
+		throw new Error(
+			'FIREBASE_APP_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
+		);
 
 	return (
 		<>
@@ -44,7 +46,7 @@ export const RemotionRoot: React.FC = () => {
 				height={1080}
 				defaultProps={{
 					titleText:
-						'Text to speech on Remotion v4, working with Firebase + Google Cloud, with realtime text changes...',
+						'Text to speech on Remotion v4, working with Firebase + Google Cloud!',
 					titleColor: 'black',
 				}}
 			/>

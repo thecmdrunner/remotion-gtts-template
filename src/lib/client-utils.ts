@@ -18,9 +18,6 @@ export const getTTSFromServer = async (
 			})
 		).json();
 
-		console.log(`DEBUG: You got result!!!!`);
-		console.log(result);
-
 		return result.url;
 	} catch (err) {
 		console.error(err);

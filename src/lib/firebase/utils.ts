@@ -12,7 +12,6 @@ export const uploadFileToFirebase = async (
 
 	// Upload file
 	const uploadedFile = await uploadBytes(storageRef, audioData);
-	console.log('🫰🏼 File uploaded!');
 	return uploadedFile;
 }; // Will return big object
 
@@ -34,7 +33,7 @@ export const checkIfAudioHasAlreadyBeenSynthesized = async (
 
 		// Return URL for download
 		const url = await getDownloadURL(ref(storage, filePath));
-		console.log(`DEBUG: File exists! 🥳`);
+		// Console.log(`Requested file already exists!`);
 		return url;
 	} catch {
 		return false;

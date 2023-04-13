@@ -4,7 +4,7 @@
 	"description": "My Remotion video",
 	"scripts": {
 		"start": "npm run audioserver & remotion preview",
-		"build": "remotion render HelloWorld out/video.mp4",
+		"build": "npm run audioserver & sleep 5; remotion render HelloWorld out/video.mp4; pkill -f \"npm run audioserver\"",
 		"audioserver": "ts-node src/server/index.ts",
 		"upgrade": "remotion upgrade",
 		"test": "eslint src --ext ts,tsx,js,jsx && tsc"
