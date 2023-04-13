@@ -1,5 +1,5 @@
 import {Composition} from 'remotion';
-import {HelloWorld} from './HelloWorld';
+import {HelloWorld, mySchema} from './HelloWorld';
 
 export const RemotionRoot: React.FC = () => {
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
@@ -39,6 +39,7 @@ export const RemotionRoot: React.FC = () => {
 		<>
 			<Composition
 				id="HelloWorld"
+				schema={mySchema}
 				component={HelloWorld}
 				durationInFrames={300}
 				fps={30}
@@ -46,8 +47,8 @@ export const RemotionRoot: React.FC = () => {
 				height={1080}
 				defaultProps={{
 					titleText:
-						'Text to speech on Remotion v4, working with Firebase + Google Cloud!',
-					titleColor: 'black',
+						'Text to speech on Remotion v4.1, working with Firebase + Google Cloud!' as const,
+					titleColor: '#2E8AEA' as const,
 				}}
 			/>
 		</>

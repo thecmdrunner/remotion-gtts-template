@@ -1,10 +1,22 @@
-import {interpolate, Sequence, useCurrentFrame, useVideoConfig} from 'remotion';
+import {
+	interpolate,
+	Sequence,
+	useCurrentFrame,
+	useVideoConfig,
+	z,
+	zColor,
+} from 'remotion';
 import {Title} from './HelloWorld/Title';
 
-export const HelloWorld: React.FC<{
-	titleText: string;
-	titleColor: string;
-}> = ({titleText, titleColor}) => {
+export const mySchema = z.object({
+	titleText: z.string(),
+	titleColor: zColor(),
+});
+
+export const HelloWorld: React.FC<z.infer<typeof mySchema>> = ({
+	titleText,
+	titleColor,
+}) => {
 	const frame = useCurrentFrame();
 	const videoConfig = useVideoConfig();
 

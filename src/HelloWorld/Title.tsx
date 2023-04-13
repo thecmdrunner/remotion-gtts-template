@@ -34,7 +34,7 @@ export const Title: React.FC<{
 
 	return (
 		<>
-			{audioUrl ? <Audio src={audioUrl} /> : <></>}
+			{audioUrl ? <Audio id="TTS Audio" about="TTS" src={audioUrl} /> : <></>}
 			<h1
 				style={{
 					fontFamily: 'SF Pro Text, Helvetica, Arial',

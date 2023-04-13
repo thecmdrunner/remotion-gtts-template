@@ -12,7 +12,7 @@
 	"repository": {},
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@remotion/eslint-config": "4.0.0-alpha.185+1b8f0e746",
+		"@remotion/eslint-config": "^3.0.0",
 		"@types/md5": "^2.3.0",
 		"@types/react": "^18.0.26",
 		"eslint": "^8.30.0",
@@ -22,7 +22,7 @@
 	},
 	"dependencies": {
 		"@google-cloud/text-to-speech": "^4.2.1",
-		"@remotion/cli": "4.0.0-alpha.185+1b8f0e746",
+		"@remotion/cli": "3.3.82",
 		"@types/cors": "^2.8.13",
 		"@types/express": "^4.17.17",
 		"cors": "^2.8.5",
@@ -33,7 +33,7 @@
 		"md5": "^2.3.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
-		"remotion": "4.0.0-alpha.185+1b8f0e746"
+		"remotion": "3.3.82"
 	},
 	"packageManager": "npm@8.19.2"
 }
