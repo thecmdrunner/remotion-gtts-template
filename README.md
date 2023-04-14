@@ -1,4 +1,10 @@
-# Remotion video
+# Remotion Text-to-Speech Template
+
+## Google Cloud Platform + Firebase Storage
+
+### NOTE: This template is currently WIP, so do not use it in production.
+
+### Feel free to try out and experiment with it. Report bugs and issues if you encounter.
 
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">
@@ -12,12 +18,11 @@
 ## PROBLEMS TO FIX:
 
 1. Must kill the express server after render finishes.
-
-Welcome to your TTS Remotion project!
+2. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
 
 ## Get Started
 
-1. Create Firebase Project
+1. Create a Firebase Project
    ![Create project](./assets/firebase-create.png)
 
 2. Go to Project Settings. In the "General" tab, go to "Your apps" section and register a "Web App".
