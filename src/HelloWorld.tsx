@@ -1,4 +1,5 @@
 import {
+	AbsoluteFill,
 	interpolate,
 	Sequence,
 	useCurrentFrame,
@@ -6,22 +7,25 @@ import {
 	z,
 	zColor,
 } from 'remotion';
-import {Title} from './HelloWorld/Title';
+import {Text} from './HelloWorld/Title';
 import {voices} from './server/TextToSpeech/constants';
-import {VoiceType} from './lib/interfaces';
+import {RequestMetadata, VoiceType} from './lib/interfaces';
 
 export const mySchema = z.object({
 	titleText: z.string(),
+	subtitleText: z.string(),
 	titleColor: zColor(),
 	voice: z.enum(
-		Object.keys(voices) as [keyof typeof voices] | [VoiceType, ...VoiceType[]]
+		Object.keys(voices) as [VoiceType] | [VoiceType, ...VoiceType[]]
 	),
 	// Voice: z.enum(Object.keys(voices)),
 	// voice: z.enum([...Object.keys(voices)]),
 	// Voice: z.enum(['enUSMan1', 'enUSMan2', 'enUSWoman1', 'enUSWoman2']),
+	pitch: z.number().min(-20).max(20),
+	speakingRate: z.number().min(0.25).max(4),
 });
 
-export const HelloWorld: React.FC<z.infer<typeof mySchema>> = (props) => {
+export const HelloWorld: React.FC<RequestMetadata> = (props) => {
 	const frame = useCurrentFrame();
 	const videoConfig = useVideoConfig();
 
@@ -37,12 +41,12 @@ export const HelloWorld: React.FC<z.infer<typeof mySchema>> = (props) => {
 	const transitionStart = 25;
 
 	return (
-		<div style={{flex: 1, backgroundColor: 'white'}}>
+		<AbsoluteFill style={{flex: 1, backgroundColor: 'white'}}>
 			<div style={{opacity}}>
 				<Sequence from={transitionStart + 10}>
-					<Title {...props} />
+					<Text {...props} />
 				</Sequence>
 			</div>
-		</div>
+		</AbsoluteFill>
 	);
 };
