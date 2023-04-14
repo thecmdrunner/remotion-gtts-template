@@ -8,7 +8,7 @@ import {createTextToSpeechAudio} from './TextToSpeech';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import {FALLBACK_RANDOM_AUDIO} from './TextToSpeech/constants';
-import {ServerResponse} from '../lib/interfaces';
+import {RequestMetadata, ServerResponse} from '../lib/interfaces';
 import {mySchema} from '../HelloWorld';
 import {z} from 'remotion';
 
@@ -28,7 +28,7 @@ app.use(cors({origin: '*'}));
 
 app.post(`/getdata`, async (req, res) => {
 	try {
-		const data = req.body as z.infer<typeof mySchema>;
+		const data = req.body as RequestMetadata;
 
 		const audioURL = await createTextToSpeechAudio({...data});
 
