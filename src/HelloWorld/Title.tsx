@@ -1,3 +1,4 @@
+import {interpolate, z} from 'remotion';
 import {useCallback, useEffect, useState} from 'react';
 import {
 	Audio,
@@ -8,47 +9,72 @@ import {
 	useVideoConfig,
 } from 'remotion';
 import {getTTSFromServer} from '../lib/client-utils';
-import {voices} from '../server/TextToSpeech/constants';
+import {RequestMetadata} from '../lib/interfaces';
 
-export const Title: React.FC<{
-	titleText: string;
-	titleColor: string;
-	voice: keyof typeof voices;
-}> = ({titleText, titleColor, voice}) => {
+export const Text: React.FC<RequestMetadata> = (props) => {
+	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
+		props;
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
-	const text = titleText.split(' ').map((t) => ` ${t} `);
+	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
 
 	const [handle] = useState(() => delayRender());
 	const [audioUrl, setAudioUrl] = useState('');
 
-	const fetchTts = useCallback(async () => {
-		const url = await getTTSFromServer(titleText, voice || 'enUSWoman1');
+	function hasDataChanged(obj1: RequestMetadata, obj2: RequestMetadata) {
+		// Check if both objects have the same number of keys
+		if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+			return false;
+		}
 
+		// Loop through each key in obj1 and compare its value with obj2
+
+		for (const key in obj1) {
+			if (obj1[key as keyof typeof obj1] !== obj2[key as keyof typeof obj2])
+				return false;
+		}
+
+		// All keys and values match
+		return true;
+	}
+
+	const fetchTts = useCallback(async () => {
+		/**
+		 * * This is a possible workaround for avoiding too many requests to server.
+		 */
+		// Const previousData = getFromLocalStorage()
+		// if (!hasDataChanged(previousData, props)) setAudioUrl(previousData.url)
+
+		const url = await getTTSFromServer({...props});
 		setAudioUrl(url);
 
 		continueRender(handle);
-	}, [handle, titleText, voice]);
+	}, [handle, props]);
 
 	useEffect(() => {
 		fetchTts();
-	}, [fetchTts]);
+	}, [fetchTts, props]);
 
 	return (
 		<>
-			{audioUrl ? <Audio id="TTS Audio" about="TTS" src={audioUrl} /> : <></>}
+			{audioUrl ? (
+				<Audio id="TTS Audio" about="TTS Audio" src={audioUrl} />
+			) : (
+				<></>
+			)}
+
 			<h1
 				style={{
 					fontFamily: 'SF Pro Text, Helvetica, Arial',
 					fontWeight: 'bold',
-					fontSize: 100,
+					fontSize: 90,
 					textAlign: 'center',
 					position: 'absolute',
-					bottom: 160,
+					top: 160,
 					width: '100%',
 				}}
 			>
-				{text.map((t, i) => {
+				{titleTextForAnimation.map((t, i) => {
 					return (
 						<span
 							key={t}
@@ -73,6 +99,25 @@ export const Title: React.FC<{
 					);
 				})}
 			</h1>
+
+			<h2
+				style={{
+					opacity: interpolate(frame, [95, 100], [0.1, 1]),
+					transform: `scale(${interpolate(frame, [95, 100], [0.9, 1], {
+						extrapolateRight: 'clamp',
+					})})`,
+					fontFamily: 'SF Pro Text, Helvetica, Arial',
+					fontWeight: 'bold',
+					fontSize: 60,
+					textAlign: 'center',
+					position: 'absolute',
+					bottom: 160,
+					width: '100%',
+					color: titleColor,
+				}}
+			>
+				{subtitleText}
+			</h2>
 		</>
 	);
 };

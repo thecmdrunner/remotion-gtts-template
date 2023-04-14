@@ -8,23 +8,24 @@ import {
 } from '../../lib/firebase/utils';
 import {audioDirectoryInBucket, voices} from './constants';
 import textToSpeech from '@google-cloud/text-to-speech';
+import {RequestMetadata} from '../../lib/interfaces';
 
 const client = new textToSpeech.TextToSpeechClient();
 
 export const createTextToSpeechAudio = async (
-	text: string,
-	voice: keyof typeof voices
+	props: RequestMetadata
 ): Promise<string> => {
-	if (!voices[voice]) throw new Error('Voice not found');
-	const selectedVoice = voices[voice];
+	if (!voices[props.voice]) throw new Error('Voice not found');
+	const selectedVoice = voices[props.voice];
 
-	const ssml = `<speak><emphasis level="strong">${text}</emphasis></speak>`;
+	const pitch = props.pitch * 100;
+	const ssml = `<speak><prosody pitch="${pitch}%"><emphasis level="strong">${props.titleText}<break time="250ms"/>${props.subtitleText}</emphasis></prosody></speak>`;
 
 	/**
 	 * * Determine directory name from SSML, directory in bucket, and voice name, to make a really unique fileName.
 	 * * Only hashing the SSML makes it easy to find specific voice audios in Firebase storage.
 	 */
-	const ssmlHash = md5(ssml);
+	const ssmlHash = md5(`${ssml} ${props.speakingRate} ${props.pitch}`);
 	const filePathInBucket = `${audioDirectoryInBucket}/${selectedVoice.name}-${ssmlHash}.mp3`;
 
 	// Return URL if already exists
@@ -43,8 +44,8 @@ export const createTextToSpeechAudio = async (
 		audioConfig: {
 			audioEncoding: 'LINEAR16', // Higher quality than 'MP3'
 			effectsProfileId: ['large-home-entertainment-class-device'], // Sounds better than small-devices
-			pitch: 0,
-			speakingRate: 1,
+			// pitch: 0,
+			speakingRate: props.speakingRate,
 		},
 	});
 	// Upload the file to firebase

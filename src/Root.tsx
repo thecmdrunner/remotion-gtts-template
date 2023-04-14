@@ -1,6 +1,6 @@
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
-import {VoiceType} from './lib/interfaces';
+import {RequestMetadata} from './lib/interfaces';
 
 export const RemotionRoot: React.FC = () => {
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
@@ -46,12 +46,17 @@ export const RemotionRoot: React.FC = () => {
 				fps={30}
 				width={1920}
 				height={1080}
-				defaultProps={{
-					titleText:
-						'Text to speech on Remotion v4.1, working with Firebase + Google Cloud!',
-					titleColor: '#2E8AEA',
-					voice: 'enUSWoman1' as VoiceType,
-				}}
+				defaultProps={
+					{
+						titleText:
+							'Text to speech on Remotion, working with programatic pitch and speaking rate!',
+						subtitleText: 'With these powerful tools, what will you build?',
+						titleColor: '#2E8AEA',
+						voice: 'Woman 1 (US)',
+						pitch: 0,
+						speakingRate: 1,
+					} as RequestMetadata
+				}
 			/>
 		</>
 	);
