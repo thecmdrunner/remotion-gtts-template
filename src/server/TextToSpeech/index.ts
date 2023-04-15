@@ -19,7 +19,12 @@ export const createTextToSpeechAudio = async (
 	const selectedVoice = voices[props.voice];
 
 	const pitch = props.pitch * 100;
-	const ssml = `<speak><prosody pitch="${pitch}%"><emphasis level="strong">${props.titleText}<break time="250ms"/>${props.subtitleText}</emphasis></prosody></speak>`;
+	const ssml = `
+<speak>
+<prosody pitch="${pitch}%">
+<emphasis level="strong">${props.titleText}<break time="250ms"/>${props.subtitleText}</emphasis>
+</prosody>
+</speak>`;
 
 	/**
 	 * * Determine directory name from SSML, directory in bucket, and voice name, to make a really unique fileName.
@@ -33,6 +38,7 @@ export const createTextToSpeechAudio = async (
 	if (fileExists) return createFirebaseUrl(filePathInBucket);
 
 	// Create the TTS audio
+	// https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
 	const [response] = await client.synthesizeSpeech({
 		input: {
 			ssml,
@@ -44,7 +50,7 @@ export const createTextToSpeechAudio = async (
 		audioConfig: {
 			audioEncoding: 'LINEAR16', // Higher quality than 'MP3'
 			effectsProfileId: ['large-home-entertainment-class-device'], // Sounds better than small-devices
-			// pitch: 0,
+			// pitch: 0, // Set this value to override pitch of the entire audio
 			speakingRate: props.speakingRate,
 		},
 	});
