@@ -2,7 +2,7 @@
 
 ## Uses Google Cloud Platform + Firebase Storage
 
-### **_NOTE:_** This is WIP, and an official template yet, so do not use it in production.
+### **_NOTE:_** This is WIP, and **NOT** an official template yet, so do not use it in production.
 
 ### Feel free to try out and experiment with it. Report bugs and issues if you encounter.
 
@@ -101,9 +101,7 @@
 
 ## Example
 
-
 https://user-images.githubusercontent.com/38887390/232190533-78e84f90-9ad3-486a-a1d3-9f499b3f9c3f.mp4
-
 
 ## Commands
 
