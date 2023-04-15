@@ -101,7 +101,9 @@
 
 ## Example
 
-![Remotion TTS example](/assets/example.png)
+
+https://user-images.githubusercontent.com/38887390/232190533-78e84f90-9ad3-486a-a1d3-9f499b3f9c3f.mp4
+
 
 ## Commands
 
