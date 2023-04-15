@@ -104,7 +104,7 @@
 Here's a sample video rendered using this template. *(Be sure to unmute the player)*
 
 
-https://user-images.githubusercontent.com/38887390/232194637-443c85fc-5d1c-47eb-ba48-92f62ce0cf27.mp4
+https://user-images.githubusercontent.com/38887390/232199560-d275def7-d147-4f29-acc6-5a81d267ba68.mp4
 
 
 ## Commands
