@@ -34,6 +34,5 @@
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
 		"remotion": "4.0.0-alpha.185+1b8f0e746"
-	},
-	"packageManager": "npm@8.19.2"
+	}
 }
