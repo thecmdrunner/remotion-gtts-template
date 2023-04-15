@@ -45,17 +45,16 @@ export const RemotionRoot: React.FC = () => {
 				fps={30}
 				width={1920}
 				height={1080}
-				defaultProps={
-					{
-						titleText:
-							'Text to speech on Remotion using Google Text-to-Speech + Firebase',
-						subtitleText: 'With these powerful tools, what will you build?',
-						titleColor: '#2E8AEA',
-						voice: 'Woman 1 (US)',
-						pitch: 0,
-						speakingRate: 1,
-					} as const
-				}
+				defaultProps={{
+					titleText:
+						'Text to speech on Remotion using Google Cloud and Firebase!' as const,
+					subtitleText:
+						'With these powerful tools, what will you build?' as const,
+					titleColor: '#2E8AEA' as const,
+					voice: 'Woman 1 (US)' as const,
+					pitch: 0,
+					speakingRate: 1,
+				}}
 			/>
 		</>
 	);

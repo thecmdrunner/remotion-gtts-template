@@ -18,6 +18,11 @@
 ## PROBLEMS TO FIX:
 
 1. Must kill the express server after render finishes.
+
+- Maybe fixable using `pm2`?
+- `npm run audioserver` should launch via `pm2` instead of `ts-node`.
+- Then simply kill it via `pm2 stop <path of file>`
+
 2. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
 
 ## Get Started
@@ -101,11 +106,9 @@
 
 ## Example
 
-Here's a sample video rendered using this template. *(Be sure to unmute the player)*
-
+Here's a sample video rendered using this template. _(Be sure to unmute the player)_
 
 https://user-images.githubusercontent.com/38887390/232199560-d275def7-d147-4f29-acc6-5a81d267ba68.mp4
-
 
 ## Commands
 
