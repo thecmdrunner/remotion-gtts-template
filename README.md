@@ -1,8 +1,8 @@
 # Remotion Text-to-Speech Template
 
-## Google Cloud Platform + Firebase Storage
+## Uses Google Cloud Platform + Firebase Storage
 
-### NOTE: This template is currently WIP, so do not use it in production.
+### **_NOTE:_** This is WIP, and an official template yet, so do not use it in production.
 
 ### Feel free to try out and experiment with it. Report bugs and issues if you encounter.
 
@@ -101,7 +101,7 @@
 
 ## Example
 
-[![Remotion TTS example](http://img.youtube.com/vi/gbIno38xdhQ/0.jpg)](http://www.youtube.com/watch?v=gbIno38xdhQ 'Remotion TTS example')
+![Remotion TTS example](/assets/example.png)
 
 ## Commands
 
