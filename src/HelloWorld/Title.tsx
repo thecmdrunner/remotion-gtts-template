@@ -76,7 +76,7 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 				style={{
 					fontFamily: 'SF Pro Text, Helvetica, Arial',
 					fontWeight: 'bold',
-					fontSize: 90,
+					fontSize: 110,
 					textAlign: 'center',
 					position: 'absolute',
 					top: 160,
@@ -117,7 +117,7 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 					})})`,
 					fontFamily: 'SF Pro Text, Helvetica, Arial',
 					fontWeight: 'bold',
-					fontSize: 60,
+					fontSize: 70,
 					textAlign: 'center',
 					position: 'absolute',
 					bottom: 160,
