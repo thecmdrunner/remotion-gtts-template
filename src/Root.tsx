@@ -1,6 +1,5 @@
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
-import {RequestMetadata} from './lib/interfaces';
 
 export const RemotionRoot: React.FC = () => {
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
