@@ -1,9 +1,6 @@
 import {z} from 'remotion';
 import {mySchema} from '../HelloWorld';
-import {
-	FALLBACK_RANDOM_AUDIO,
-	SERVER_URL,
-} from '../server/TextToSpeech/constants';
+import {FALLBACK_AUDIO_URL, SERVER_URL} from '../server/TextToSpeech/constants';
 import {RequestMetadata, ServerResponse} from './interfaces';
 
 export const getTTSFromServer = async (
@@ -21,6 +18,6 @@ export const getTTSFromServer = async (
 		return result.url;
 	} catch (err) {
 		console.error(err);
-		return FALLBACK_RANDOM_AUDIO;
+		return FALLBACK_AUDIO_URL;
 	}
 };

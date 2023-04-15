@@ -7,7 +7,7 @@ import express from 'express';
 import {createTextToSpeechAudio} from './TextToSpeech';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import {FALLBACK_RANDOM_AUDIO} from './TextToSpeech/constants';
+import {FALLBACK_AUDIO_URL} from './TextToSpeech/constants';
 import {RequestMetadata, ServerResponse} from '../lib/interfaces';
 
 dotenv.config();
@@ -27,7 +27,7 @@ app.post(`/getdata`, async (req, res) => {
 		return res.json({url: audioURL} as ServerResponse).end();
 	} catch (err) {
 		console.error(err);
-		return res.json({url: FALLBACK_RANDOM_AUDIO} as ServerResponse).end();
+		return res.json({url: FALLBACK_AUDIO_URL} as ServerResponse).end();
 	}
 });
 
