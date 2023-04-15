@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import md5 from 'md5';
 import {
 	checkIfAudioHasAlreadyBeenSynthesized as isAudioAlreadySynthesized,
