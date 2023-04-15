@@ -27,7 +27,10 @@ app.post(`/getdata`, async (req, res) => {
 		return res.json({url: audioURL} as ServerResponse).end();
 	} catch (err) {
 		console.error(err);
-		return res.json({url: FALLBACK_AUDIO_URL} as ServerResponse).end();
+		return res
+			.status(200)
+			.json({url: FALLBACK_AUDIO_URL} as ServerResponse)
+			.end();
 	}
 });
 

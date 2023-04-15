@@ -1,4 +1,4 @@
-import {interpolate, z} from 'remotion';
+import {interpolate, staticFile, z} from 'remotion';
 import {useCallback, useEffect, useState} from 'react';
 import {
 	Audio,
@@ -10,6 +10,7 @@ import {
 } from 'remotion';
 import {getTTSFromServer} from '../lib/client-utils';
 import {RequestMetadata} from '../lib/interfaces';
+import {FALLBACK_AUDIO_URL} from '../server/TextToSpeech/constants';
 
 export const Text: React.FC<RequestMetadata> = (props) => {
 	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
@@ -58,7 +59,15 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 	return (
 		<>
 			{audioUrl ? (
-				<Audio id="TTS Audio" about="TTS Audio" src={audioUrl} />
+				<Audio
+					id="TTS Audio"
+					about="TTS Audio"
+					src={
+						audioUrl === FALLBACK_AUDIO_URL
+							? staticFile(FALLBACK_AUDIO_URL)
+							: audioUrl
+					}
+				/>
 			) : (
 				<></>
 			)}

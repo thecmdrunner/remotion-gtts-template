@@ -1,11 +1,9 @@
-import {staticFile} from 'remotion';
-
 export const FIREBASE_BUCKET_NAME = process.env.FIREBASE_BUCKET_NAME || '';
 
 export const SERVER_URL = `http://localhost:${process.env.SERVER_PORT || 5050}`;
 export const audioDirectoryInBucket = 'remotion-gtts';
 
-export const FALLBACK_AUDIO_URL = staticFile('error_audio.mp3');
+export const FALLBACK_AUDIO_URL = '/error_audio.mp3';
 
 export const voices = {
 	'Man 1 (US)': {name: 'en-US-Neural2-D', languageCode: 'en-US'},
