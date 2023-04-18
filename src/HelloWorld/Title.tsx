@@ -1,4 +1,4 @@
-import {interpolate, staticFile, z} from 'remotion';
+import {interpolate, staticFile} from 'remotion';
 import {useCallback, useEffect, useState} from 'react';
 import {
 	Audio,

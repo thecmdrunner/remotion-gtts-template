@@ -1,5 +1,3 @@
-import {z} from 'remotion';
-import {mySchema} from '../HelloWorld';
 import {FALLBACK_AUDIO_URL, SERVER_URL} from '../server/TextToSpeech/constants';
 import {RequestMetadata, ServerResponse} from './interfaces';
 
