@@ -1,8 +1,3 @@
-/**
- * * Trying to use express server just like this template: https://github.com/remotion-dev/template-still
- * * You can also implement Rate limiting from it, if needed when deploying this project as a site.
- */
-
 import express from 'express';
 import {createTextToSpeechAudio} from './TextToSpeech';
 import cors from 'cors';
