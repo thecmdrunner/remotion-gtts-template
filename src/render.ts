@@ -1,35 +1,22 @@
-import {bundle} from '@remotion/bundler';
-import {renderMedia, getCompositions} from '@remotion/renderer';
-import {AnySmallCompMetadata} from 'remotion';
 import {startServer} from './server/server';
+import {spawn} from 'child_process';
 
 export const render = async () => {
 	const server = startServer();
-	const serveUrl = await bundle({
-		entryPoint: 'src/index.ts',
-		enableCaching: true,
-	});
 
-	const compositions = await getCompositions(serveUrl);
-
-	await renderMedia({
-		serveUrl,
-		composition: compositions.find(
-			(c) => c.id === 'HelloWorld'
-		) as AnySmallCompMetadata,
-		codec: 'h264',
-		onProgress: (progress) => {
-			console.log('Rendering progress:', progress);
-		},
+	await new Promise<void>((resolve, reject) => {
+		const proc = spawn('npx', ['remotion', 'render'], {stdio: 'inherit'});
+		proc.on('exit', (code) => {
+			if (code === 0) {
+				resolve();
+			} else {
+				reject(new Error('Rendering failed'));
+			}
+		});
 	});
 
 	console.log('Finished rendering');
 	return server.close();
 };
 
-render()
-	.then(() => process.exit(0))
-	.catch((err) => {
-		console.error(err);
-		process.exit(1);
-	});
+render();
