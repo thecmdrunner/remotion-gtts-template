@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import dotenv from 'dotenv';
+import {getStorage} from 'firebase/storage';
 dotenv.config();
 
 const config = {
@@ -13,3 +14,4 @@ const config = {
 
 // Initialize Firebase
 export const app = initializeApp(config);
+export const storage = getStorage(app);
