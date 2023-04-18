@@ -17,13 +17,7 @@
 
 ## PROBLEMS TO FIX:
 
-1. Must kill the express server after render finishes.
-
-- Maybe fixable using `pm2`?
-- `npm run audioserver` should launch via `pm2` instead of `ts-node`.
-- Then simply kill it via `pm2 stop <path of file>`
-
-2. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
+1. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
 
 ## Get Started
 
