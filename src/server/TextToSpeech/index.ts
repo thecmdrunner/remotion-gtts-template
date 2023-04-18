@@ -48,7 +48,6 @@ export const createTextToSpeechAudio = async (
 		audioConfig: {
 			audioEncoding: 'LINEAR16', // Higher quality than 'MP3'
 			effectsProfileId: ['large-home-entertainment-class-device'], // Sounds better than small-devices
-			// pitch: 0, // Set this value to override pitch of the entire audio
 			speakingRate: props.speakingRate,
 		},
 	});
