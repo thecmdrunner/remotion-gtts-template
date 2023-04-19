@@ -15,30 +15,43 @@
   </a>
 </p>
 
-## PROBLEMS TO FIX:
+## Things to keep in mind:
 
 1. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
+2. As text for TTS changes, you may also want to alter the `durationInFrames` for your `<Composition/>`.
 
 ## Get Started
 
-1. Create a Firebase Project
-   ![Create project](./assets/firebase-create.png)
+### 1. Create a Firebase Project
 
-2. Go to Project Settings. In the "General" tab, go to "Your apps" section and register a "Web App".
+<img src="assets/firebase-create.png" alt="Create project" width="450"/>
+  
+<!-- ![Create project](./assets/firebase-create.png) -->
+
+### 2. Register your app in Firebase
+
+- Go to Project Settings → "General" tab.
+- Scroll down to "Your apps" section, and register a "Web App".
 
 <!-- VIDEO -->
 
 /assets/firebase-register.mp4
 
-3. Copy the config credentials and paste into `.env`
+### 3. Copy the config credentials and paste into `.env`
 
-4. Enable storage, create storage bucket, and edit rules to allow read, write for `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
+### 4. Enable storage, create storage bucket with your preffered location.
 
 <!-- VIDEO -->
 
 /assets/firebase-storage-enable.mp4
 
-- Configure bucket rules
+### 5. Setup security rules
+
+Edit rules to allow read, write for `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
+
+<!-- ![Security rules](./assets/firebase-storage-rules.png) -->
+
+- Configure bucket rules, such as the following:
 
 ```js
   rules_version = '2';
@@ -51,32 +64,37 @@
   }
 ```
 
-> Maybe you should have better security validation instead of just allowing `write` to everyone.
+> For production use, it is recommended to implement more rigorous validation measures to enhance security, especially for write operations.
 
-![Create rules](./assets/firebase-storage-rules.png)
+<img src="assets/firebase-storage-rules.png" alt="Security rules" width="450"/>
 
-5. Enable TTS API on GCP
+### 5. Enable Text-to-Speech API on Google Cloud
 
-- You will probably already have a project set up in GCP with the same name as the Firebase project you created earlier. Just use that, to keep things simple.
+You may already have a matching project set up in Google Cloud Platform (GCP) with the same name as your Firebase project. Use that project, as it simplifies the authentication setup.
 
-- Open hambuger menu, go to APIs and Services -> Library
-- Search for "text to speech", and enable **Cloud Text-to-Speech API**. You may be required to enable billing, by creating a billing account. (Be sure to also review the pricing tab)
+- Open the hambuger menu, go to APIs and Services → Library.
+- Search for "**text to speech**", and enable **Cloud Text-to-Speech API**.
 
-![Create credentials](/assets/gcp-enable-api.png)
+  You may be required to enable billing, by creating a billing account. (Be sure to also review the pricing tab)
+
+  <!-- ![Enable API](/assets/gcp-enable-api.png) -->
+  <img src="assets/gcp-enable-api.png" alt="Enable API" width="450"/>
 
 <!-- VIDEO -->
 
 /assets/gcp-enable-api.mp4
 
-6. Create Credentials
+### 6. Create Credentials
 
-- After API is enabled, click on **Manage** -> **Credentials** (on sidebar)
+- After API is enabled, go to **Manage** → **Credentials** (on sidebar)
 
-![Create credentials](/assets/gcp-manage-api.png)
+  <img src="assets/gcp-manage-api.png" alt="Manage API" width="450"/>
+  <!-- ![Manage API](/assets/gcp-manage-api.png) -->
 
-- Click on **CREATE CREDENTIALS** and select Service Account
+- Click **CREATE CREDENTIALS** and select **Service Account**.
 
-![Create credentials](/assets/gcp-create-credentials.png)
+  <img src="assets/gcp-create-credentials.png" alt="Create credentials" width="450"/>
+  <!-- ![Create credentials](/assets/gcp-create-credentials.png) -->
 
 - Fill relevant fields, select the _Basic_ role of **_Owner_**, and skip the other optional fields if not required.
 
@@ -84,13 +102,15 @@
 
 /assets/gcp-create-serviceaccount.mp4
 
-- Now create a JSON key to download credentials as a `.json` file.
+- Create a JSON key to download credentials as a `.json` file.
 
 <!-- VIDEO -->
 
 /assets/gcp-create-key.mp4
 
-- Name the JSON file as `serviceaccount.json` and place it in the root of your project - `/serviceaccount.json`
+- Place the downloaded JSON file in the root of your project, and rename it as `serviceaccount.json`.
+
+  <img src="assets/serviceaccount-dir.png" alt="Credentials location" width="150"/>
 
 > **IMPORTANT:** This file must never be committed, and must be added to .gitignore, .dockerignore, etc. if you change its name to something different.
 
