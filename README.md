@@ -33,19 +33,19 @@
 - Go to Project Settings → "General" tab.
 - Scroll down to "Your apps" section, and register a "Web App".
 
-<!-- VIDEO -->
+https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-938c-41574cbae0c4.mp4
 
-/assets/firebase-register.mp4
+<!-- VIDEO /assets/firebase-register.mp4 -->
 
-### 3. Copy the config credentials and paste into `.env`
+- Copy the config credentials and paste into `.env`
 
-### 4. Enable storage, create storage bucket with your preffered location.
+### 3. Enable storage, create storage bucket with your preffered location.
 
-<!-- VIDEO -->
+https://user-images.githubusercontent.com/38887390/233017269-ed1812aa-d0f1-4d3a-907c-4b473cc6894e.mp4
 
-/assets/firebase-storage-enable.mp4
+<!-- VIDEO /assets/firebase-storage-enable.mp4 -->
 
-### 5. Setup security rules
+### 4. Setup security rules
 
 Edit rules to allow read, write for `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
 
@@ -80,9 +80,9 @@ You may already have a matching project set up in Google Cloud Platform (GCP) wi
   <!-- ![Enable API](/assets/gcp-enable-api.png) -->
   <img src="assets/gcp-enable-api.png" alt="Enable API" width="450"/>
 
-<!-- VIDEO -->
+https://user-images.githubusercontent.com/38887390/233017359-daadcd50-bd5b-42bb-81a4-dd8cfca48a79.mp4
 
-/assets/gcp-enable-api.mp4
+<!-- VIDEO /assets/gcp-enable-api.mp4 -->
 
 ### 6. Create Credentials
 
@@ -94,19 +94,20 @@ You may already have a matching project set up in Google Cloud Platform (GCP) wi
 - Click **CREATE CREDENTIALS** and select **Service Account**.
 
   <img src="assets/gcp-create-credentials.png" alt="Create credentials" width="450"/>
-  <!-- ![Create credentials](/assets/gcp-create-credentials.png) -->
+
+<!-- ![Create credentials](/assets/gcp-create-credentials.png) -->
 
 - Fill relevant fields, select the _Basic_ role of **_Owner_**, and skip the other optional fields if not required.
 
-<!-- VIDEO -->
+https://user-images.githubusercontent.com/38887390/233017468-8defa322-b79a-4ad8-9d04-e5b8c2bd26b8.mp4
 
-/assets/gcp-create-serviceaccount.mp4
+<!-- VIDEO /assets/gcp-create-serviceaccount.mp4 -->
 
 - Create a JSON key to download credentials as a `.json` file.
 
-<!-- VIDEO -->
+https://user-images.githubusercontent.com/38887390/233017530-9bf8aeef-ff45-4e5a-8886-13a1dba2608a.mp4
 
-/assets/gcp-create-key.mp4
+<!-- VIDEO /assets/gcp-create-key.mp4  -->
 
 - Place the downloaded JSON file in the root of your project, and rename it as `serviceaccount.json`.
 
@@ -115,8 +116,6 @@ You may already have a matching project set up in Google Cloud Platform (GCP) wi
 > **IMPORTANT:** This file must never be committed, and must be added to .gitignore, .dockerignore, etc. if you change its name to something different.
 
 > If you change the location of this file, make sure to also update `GOOGLE_APPLICATION_CREDENTIALS` in `.env`
-
-7. Copy `.env.example` to `.env` and enter your secrets.
 
 ## Example
 
