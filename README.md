@@ -2,10 +2,6 @@
 
 ## Uses Google Cloud Platform + Firebase Storage
 
-### **_NOTE:_** This is WIP, and **NOT** an official template yet, so do not use it in production.
-
-### Feel free to try out and experiment with it. Report bugs and issues if you encounter.
-
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">
     <picture>
