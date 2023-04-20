@@ -17,8 +17,9 @@
 
 ## Things to keep in mind:
 
-1. Doesn't work in codespaces because `audioserver` URL is `localhost:PORT`
-2. As text for TTS changes, you may also want to alter the `durationInFrames` for your `<Composition/>`.
+1. As text for TTS changes, you may also want to programatically alter the `durationInFrames` for your `<Composition/>` using [`getAudioDurationInSeconds()`](https://www.remotion.dev/docs/get-audio-duration-in-seconds).
+
+2. [Special consideration must be made](#running-on-cloud-development-environments) when using cloud development services (like GitHub Codespaces, StackBlitz, etc).
 
 ## Get Started
 
@@ -103,7 +104,7 @@ https://user-images.githubusercontent.com/38887390/233017468-8defa322-b79a-4ad8-
 
 <!-- VIDEO /assets/gcp-create-serviceaccount.mp4 -->
 
-- Create a JSON key to download credentials as a `.json` file.
+- Select the newly created Service Account, and create a JSON key to download credentials as a `.json` file.
 
 https://user-images.githubusercontent.com/38887390/233017530-9bf8aeef-ff45-4e5a-8886-13a1dba2608a.mp4
 
@@ -111,7 +112,7 @@ https://user-images.githubusercontent.com/38887390/233017530-9bf8aeef-ff45-4e5a-
 
 - Place the downloaded JSON file in the root of your project, and rename it as `serviceaccount.json`.
 
-  <img src="assets/serviceaccount-dir.png" alt="Credentials location" width="150"/>
+  <img src="assets/serviceaccount-dir.png" alt="Credentials location" width="200"/>
 
 > **IMPORTANT:** This file must never be committed, and must be added to .gitignore, .dockerignore, etc. if you change its name to something different.
 
@@ -125,19 +126,36 @@ https://user-images.githubusercontent.com/38887390/232199560-d275def7-d147-4f29-
 
 ## Commands
 
-**Install Dependencies**
+#### Install Dependencies
 
 ```console
 npm i
 ```
 
-**Start Preview**
+#### Start Preview
 
 ```console
 npm start
 ```
 
-**Render video**
+#### Running on Cloud development environments:
+
+- To run Remotion Preview or Renders, you need to set the server visibility to public, every time the server starts.
+  This is not recommended and must only be used in trusted environments.
+
+##### GitHub Codespaces:
+
+```console
+gh codespace ports visibility 5050:public -c $CODESPACE_NAME
+```
+
+Replace **5050** with your own port, if you have changed it to something else.
+
+To avoid having to run the command every single time, you can forward the port in advance, so that it's still being forwarded after the server exits.
+
+- Then reload the VS Code window by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and selecting **Developer: Reload Window**
+
+#### Render video
 
 ```console
 npm run build
@@ -145,7 +163,7 @@ npm run build
 
 See [docs for server-side rendering](https://www.remotion.dev/docs/ssr) here.
 
-**Upgrade Remotion**
+#### Upgrade Remotion
 
 ```console
 npm run upgrade
