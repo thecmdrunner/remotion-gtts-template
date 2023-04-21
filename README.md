@@ -19,7 +19,7 @@
 
 ## Get Started
 
-### 1. Create a Firebase Project
+### 1. Create a [Firebase Project](https://console.firebase.google.com/)
 
 <img src="assets/firebase-create.png" alt="Create project" width="450"/>
   
@@ -36,7 +36,7 @@ https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-
 
 - Copy the config credentials and paste into `.env`
 
-### 3. Enable storage, create storage bucket with your preffered location.
+### 3. Enable storage, create storage bucket with your preffered location
 
 https://user-images.githubusercontent.com/38887390/233017269-ed1812aa-d0f1-4d3a-907c-4b473cc6894e.mp4
 
@@ -65,7 +65,7 @@ Edit rules to allow read, write for `remotion-gtts` directory (or any other dire
 
 <img src="assets/firebase-storage-rules.png" alt="Security rules" width="450"/>
 
-### 5. Enable Text-to-Speech API on Google Cloud
+### 5. Enable Text-to-Speech API on [Google Cloud Platform](https://console.cloud.google.com/)
 
 You may already have a matching project set up in Google Cloud Platform (GCP) with the same name as your Firebase project. Use that project, as it simplifies the authentication setup.
 
