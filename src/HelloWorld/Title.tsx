@@ -1,5 +1,5 @@
 import {interpolate, staticFile} from 'remotion';
-import {useCallback, useEffect, useState} from 'react';
+import {useState} from 'react';
 import {
 	Audio,
 	continueRender,
@@ -11,6 +11,7 @@ import {
 import {getTTSFromServer} from '../lib/client-utils';
 import {RequestMetadata} from '../lib/interfaces';
 import {FALLBACK_AUDIO_URL} from '../server/TextToSpeech/constants';
+import {useQuery} from '@tanstack/react-query';
 
 export const Text: React.FC<RequestMetadata> = (props) => {
 	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
@@ -20,45 +21,16 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
 
 	const [handle] = useState(() => delayRender());
-	const [audioUrl, setAudioUrl] = useState('');
 
-	function hasDataChanged(obj1: RequestMetadata, obj2: RequestMetadata) {
-		// Check if both objects have the same number of keys
-		if (Object.keys(obj1).length !== Object.keys(obj2).length) {
-			return false;
-		}
-
-		// Loop through each key in obj1 and compare its value with obj2
-
-		for (const key in obj1) {
-			if (obj1[key as keyof typeof obj1] !== obj2[key as keyof typeof obj2])
-				return false;
-		}
-
-		// All keys and values match
-		return true;
-	}
-
-	const fetchTts = useCallback(async () => {
-		/**
-		 * * This is a possible workaround for avoiding too many requests to server.
-		 */
-		// Const previousData = getFromLocalStorage()
-		// if (!hasDataChanged(previousData, props)) setAudioUrl(previousData.url)
-
-		const url = await getTTSFromServer({...props});
-		setAudioUrl(url);
-
-		continueRender(handle);
-	}, [handle, props]);
-
-	useEffect(() => {
-		fetchTts();
-	}, [fetchTts, props]);
+	const {data: audioUrl} = useQuery({
+		queryKey: ['audioUrl'],
+		queryFn: () => getTTSFromServer({...props}),
+		onSettled: () => continueRender(handle),
+	});
 
 	return (
 		<>
-			{audioUrl ? (
+			{audioUrl && (
 				<Audio
 					id="TTS Audio"
 					about="TTS Audio"
@@ -68,8 +40,6 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 							: audioUrl
 					}
 				/>
-			) : (
-				<></>
 			)}
 
 			<h1
