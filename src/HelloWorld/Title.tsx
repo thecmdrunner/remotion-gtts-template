@@ -14,12 +14,6 @@ import {FALLBACK_AUDIO_URL} from '../server/TextToSpeech/constants';
 import {useQuery} from '@tanstack/react-query';
 
 export const Text: React.FC<RequestMetadata> = (props) => {
-	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
-		props;
-	const videoConfig = useVideoConfig();
-	const frame = useCurrentFrame();
-	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
-
 	const [handle] = useState(() => delayRender());
 
 	const {data: audioUrl} = useQuery({
@@ -27,6 +21,12 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 		queryFn: () => getTTSFromServer({...props}),
 		onSettled: () => continueRender(handle),
 	});
+
+	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
+		props;
+	const videoConfig = useVideoConfig();
+	const frame = useCurrentFrame();
+	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
 
 	return (
 		<>
