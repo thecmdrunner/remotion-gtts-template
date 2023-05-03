@@ -1,5 +1,6 @@
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 export const RemotionRoot: React.FC = () => {
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
@@ -35,8 +36,11 @@ export const RemotionRoot: React.FC = () => {
 			'FIREBASE_APP_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
 		);
 
+	// Create a React Query client to wrap all compositions with.
+	const queryClient = new QueryClient();
+
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<Composition
 				id="HelloWorld"
 				schema={mySchema}
@@ -47,7 +51,7 @@ export const RemotionRoot: React.FC = () => {
 				height={1080}
 				defaultProps={{
 					titleText:
-						'Text to speech on Remotion using Google Cloud and Firebase!' as const,
+						'Text to speech on Remotion using  Google Cloud and Firebase!' as const,
 					subtitleText:
 						'With these powerful tools, what will you build?' as const,
 					titleColor: '#2E8AEA' as const,
@@ -56,6 +60,6 @@ export const RemotionRoot: React.FC = () => {
 					speakingRate: 1,
 				}}
 			/>
-		</>
+		</QueryClientProvider>
 	);
 };
