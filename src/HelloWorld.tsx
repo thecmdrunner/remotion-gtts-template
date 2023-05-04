@@ -4,12 +4,12 @@ import {
 	Sequence,
 	useCurrentFrame,
 	useVideoConfig,
-	z,
-	zColor,
 } from 'remotion';
 import {Text} from './HelloWorld/Title';
 import {voices} from './server/TextToSpeech/constants';
 import {RequestMetadata, VoiceType} from './lib/interfaces';
+import {z} from 'zod';
+import {zColor} from '@remotion/zod-types';
 
 export const mySchema = z.object({
 	titleText: z.string(),

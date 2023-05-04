@@ -1,7 +1,7 @@
 export const FIREBASE_BUCKET_NAME = process.env.FIREBASE_BUCKET_NAME || '';
 
 export const AUDIO_SERVERS = {
-	local: `http://localhost:${process.env.SERVER_PORT || 5050}`, // For running on local machine
+	local: `http://localhost:${process.env.SERVER_PORT ?? 5050}`, // For running on local machine
 
 	/**
 	 * * For example:
@@ -24,4 +24,4 @@ export const voices = {
 	'Man 2 (US)': {name: 'en-US-Neural2-J', languageCode: 'en-US'},
 	'Woman 1 (US)': {name: 'en-US-Neural2-H', languageCode: 'en-US'},
 	'Woman 2 (US)': {name: 'en-US-Neural2-F', languageCode: 'en-US'},
-};
+} as const;

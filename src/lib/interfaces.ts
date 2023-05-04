@@ -1,4 +1,4 @@
-import {z} from 'remotion';
+import {z} from 'zod';
 import {mySchema} from '../HelloWorld';
 import {voices} from '../server/TextToSpeech/constants';
 
