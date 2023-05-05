@@ -29,7 +29,7 @@ using Google Cloud Platform + Firebase Storage
 
 ### 2. Register your app in Firebase
 
-- Go to ⚙️ -> Project Settings → "General" tab.
+- Go to ⚙️ → Project Settings → "General" tab.
 - Scroll down to "Your apps" section, and register a "Web App".
 
 https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-938c-41574cbae0c4.mp4
@@ -41,7 +41,7 @@ https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-
 
 ### 3. Enable storage, create storage bucket with your preffered location
 
-Press: Build -> Storage -> Get started -> Start in production mode -> Next -> Done
+Press: Build → Storage → Get started → Start in production mode → Next → Done
 
 https://user-images.githubusercontent.com/38887390/233017269-ed1812aa-d0f1-4d3a-907c-4b473cc6894e.mp4
 
