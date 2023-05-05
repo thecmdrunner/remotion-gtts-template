@@ -1,6 +1,6 @@
 # Remotion Text-to-Speech Template
 
-## Uses Google Cloud Platform + Firebase Storage
+using Google Cloud Platform + Firebase Storage
 
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">
@@ -17,6 +17,8 @@
 
 2. [Special consideration must be made](#running-on-cloud-development-environments) when using cloud development services (like GitHub Codespaces, StackBlitz, etc).
 
+3. Since the Google Text-to-speech APIs cannot be called from the browser, a server is included in this example that will spawn up during development. This server is **not compatible with Remotion Lambda.** If you use SSR APIs, you must start the server as well.
+
 ## Get Started
 
 ### 1. Create a [Firebase Project](https://console.firebase.google.com/)
@@ -27,16 +29,19 @@
 
 ### 2. Register your app in Firebase
 
-- Go to Project Settings → "General" tab.
+- Go to ⚙️ -> Project Settings → "General" tab.
 - Scroll down to "Your apps" section, and register a "Web App".
 
 https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-938c-41574cbae0c4.mp4
 
 <!-- VIDEO /assets/firebase-register.mp4 -->
 
-- Copy the config credentials and paste into `.env`
+- Copy the config credentials and paste into `.env.example`.  
+  Then rename the file to `.env`.
 
 ### 3. Enable storage, create storage bucket with your preffered location
+
+Press: Build -> Storage -> Get started -> Start in production mode -> Next -> Done
 
 https://user-images.githubusercontent.com/38887390/233017269-ed1812aa-d0f1-4d3a-907c-4b473cc6894e.mp4
 
@@ -67,12 +72,11 @@ Edit rules to allow read, write for `remotion-gtts` directory (or any other dire
 
 ### 5. Enable Text-to-Speech API on [Google Cloud Platform](https://console.cloud.google.com/)
 
-You may already have a matching project set up in Google Cloud Platform (GCP) with the same name as your Firebase project. Use that project, as it simplifies the authentication setup.
+Go to https://console.cloud.google.com/welcome and in the top dropdown, select your project under the `All` tab.
 
-- Open the hambuger menu, go to APIs and Services → Library.
-- Search for "**text to speech**", and enable **Cloud Text-to-Speech API**.
+Navigate to https://console.cloud.google.com/apis/library/texttospeech.googleapis.com and enable the API.
 
-  You may be required to enable billing, by creating a billing account. (Be sure to also review the pricing tab)
+You may be required to enable billing, by creating a billing account. (Be sure to also review the pricing tab)
 
   <!-- ![Enable API](/assets/gcp-enable-api.png) -->
   <img src="assets/gcp-enable-api.png" alt="Enable API" width="450"/>
@@ -83,12 +87,12 @@ https://user-images.githubusercontent.com/38887390/233017359-daadcd50-bd5b-42bb-
 
 ### 6. Create Credentials
 
-- After API is enabled, go to **Manage** → **Credentials** (on sidebar)
+- After API is enabled, go to **Credentials** (in the sidebar)
 
   <img src="assets/gcp-manage-api.png" alt="Manage API" width="450"/>
   <!-- ![Manage API](/assets/gcp-manage-api.png) -->
 
-- Click **CREATE CREDENTIALS** and select **Service Account**.
+- Click **Create Credentials** and select **Service Account**.
 
   <img src="assets/gcp-create-credentials.png" alt="Create credentials" width="450"/>
 
@@ -100,7 +104,7 @@ https://user-images.githubusercontent.com/38887390/233017468-8defa322-b79a-4ad8-
 
 <!-- VIDEO /assets/gcp-create-serviceaccount.mp4 -->
 
-- Select the newly created Service Account, and create a JSON key to download credentials as a `.json` file.
+- Select the newly created Service Account, and under "Keys" create a JSON key to download credentials as a `.json` file.
 
 https://user-images.githubusercontent.com/38887390/233017530-9bf8aeef-ff45-4e5a-8886-13a1dba2608a.mp4
 
@@ -136,8 +140,7 @@ npm start
 
 #### Running on Cloud development environments:
 
-- To run Remotion Preview or Renders, you need to set the server visibility to public, every time the server starts.
-  This is not recommended and must only be used in trusted environments.
+- To run Remotion Preview or Renders, the server also needs to be started. Refer to `src/render.ts` to learn how to do so.
 
 ##### GitHub Codespaces:
 
