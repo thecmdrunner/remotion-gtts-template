@@ -144,13 +144,13 @@ npm start
 
 ##### GitHub Codespaces:
 
+- While using GitHub Codespaces, You need to set the server visibility to **public** using the CLI, every time the server starts. This is **NOT** recommended and must only be done in trusted scenarios.
+
 ```console
 gh codespace ports visibility 5050:public -c $CODESPACE_NAME
 ```
 
-Replace **5050** with your own port, if you have changed it to something else.
-
-To avoid having to run the command every single time, you can forward the port in advance, so that it's still being forwarded after the server exits.
+  Replace `5050` with your own port, if you have changed it to something else. To avoid doing this every time, you can forward the port manually ahead of time.
 
 - Then reload the VS Code window by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and selecting **Developer: Reload Window**
 
