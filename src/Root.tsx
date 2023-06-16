@@ -62,7 +62,7 @@ export const RemotionRoot: React.FC = () => {
 					voice: 'Woman 1 (US)' as const,
 					pitch: 0,
 					speakingRate: 1,
-					audioUrl: FALLBACK_AUDIO_URL,
+					audioUrl: null,
 				}}
 				calculateMetadata={async ({props}) => {
 					const audioUrl = await getTTSFromServer({...props}).then();
