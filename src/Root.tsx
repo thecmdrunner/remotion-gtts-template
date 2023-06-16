@@ -2,6 +2,7 @@ import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
 import {getTTSFromServer} from './lib/client-utils';
+import {waitForNoInput} from './debounce';
 
 // Create a React Query client to wrap all compositions with.
 
@@ -60,7 +61,8 @@ export const RemotionRoot: React.FC = () => {
 				speakingRate: 1,
 				audioUrl: null,
 			}}
-			calculateMetadata={async ({props}) => {
+			calculateMetadata={async ({props, abortSignal}) => {
+				await waitForNoInput(abortSignal, 1000);
 				const audioUrl = await getTTSFromServer({...props}).then();
 				const audioDurationInSeconds = await getAudioDurationInSeconds(
 					audioUrl
