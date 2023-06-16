@@ -1,12 +1,9 @@
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {getTTSFromServer} from './lib/client-utils';
-import {FALLBACK_AUDIO_URL} from './server/TextToSpeech/constants';
 
 // Create a React Query client to wrap all compositions with.
-const queryClient = new QueryClient();
 
 export const RemotionRoot: React.FC = () => {
 	const FPS = 30;
@@ -44,41 +41,39 @@ export const RemotionRoot: React.FC = () => {
 		);
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<Composition
-				id="HelloWorld"
-				schema={mySchema}
-				component={HelloWorld}
-				durationInFrames={300}
-				fps={FPS}
-				width={1920}
-				height={1080}
-				defaultProps={{
-					titleText:
-						'Text to speech on Remotion using  Google Cloud and Firebase!' as const,
-					subtitleText:
-						'With these powerful tools, what will you build?' as const,
-					titleColor: '#2E8AEA' as const,
-					voice: 'Woman 1 (US)' as const,
-					pitch: 0,
-					speakingRate: 1,
-					audioUrl: null,
-				}}
-				calculateMetadata={async ({props}) => {
-					const audioUrl = await getTTSFromServer({...props}).then();
-					const audioDurationInSeconds = await getAudioDurationInSeconds(
-						audioUrl
-					);
-					const calculatedVideoDuration = Math.ceil(audioDurationInSeconds);
-					return {
-						props: {
-							...props,
-							audioUrl,
-						},
-						durationInFrames: 30 + calculatedVideoDuration * FPS,
-					};
-				}}
-			/>
-		</QueryClientProvider>
+		<Composition
+			id="HelloWorld"
+			schema={mySchema}
+			component={HelloWorld}
+			durationInFrames={300}
+			fps={FPS}
+			width={1920}
+			height={1080}
+			defaultProps={{
+				titleText:
+					'Text to speech on Remotion using  Google Cloud and Firebase!' as const,
+				subtitleText:
+					'With these powerful tools, what will you build?' as const,
+				titleColor: '#2E8AEA' as const,
+				voice: 'Woman 1 (US)' as const,
+				pitch: 0,
+				speakingRate: 1,
+				audioUrl: null,
+			}}
+			calculateMetadata={async ({props}) => {
+				const audioUrl = await getTTSFromServer({...props}).then();
+				const audioDurationInSeconds = await getAudioDurationInSeconds(
+					audioUrl
+				);
+				const calculatedVideoDuration = Math.ceil(audioDurationInSeconds);
+				return {
+					props: {
+						...props,
+						audioUrl,
+					},
+					durationInFrames: 30 + calculatedVideoDuration * FPS,
+				};
+			}}
+		/>
 	);
 };
