@@ -22,8 +22,7 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 		onSettled: () => continueRender(handle),
 	});
 
-	const {titleText, titleColor, pitch, speakingRate, voice, subtitleText} =
-		props;
+	const {titleText, titleColor, subtitleText} = props;
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
 	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
