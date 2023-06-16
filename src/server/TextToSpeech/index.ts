@@ -27,7 +27,6 @@ export const createTextToSpeechAudio = async (
 	 * * Determine directory name from SSML, directory in bucket, and voice name, to make a really unique fileName.
 	 * * Only hashing the SSML makes it easy to find specific voice audios in Firebase storage.
 	 */
-	console.log(props.pitch);
 	const ssmlHash = md5(`${ssml} ${props.speakingRate} ${props.pitch}`);
 	const filePathInBucket = `${audioDirectoryInBucket}/${selectedVoice.name}-${ssmlHash}.mp3`;
 
