@@ -32,7 +32,7 @@ export const createTextToSpeechAudio = async (
 
 	// Return URL if already exists
 	const fileExists = await isAudioAlreadySynthesized(filePathInBucket);
-	if (fileExists) return createFirebaseUrl(filePathInBucket);
+	if (fileExists) return fileExists;
 
 	// Create the TTS audio
 	// https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
