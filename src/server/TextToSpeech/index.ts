@@ -16,10 +16,9 @@ export const createTextToSpeechAudio = async (
 	if (!voices[props.voice]) throw new Error('Voice not found');
 	const selectedVoice = voices[props.voice];
 
-	const pitch = props.pitch * 100;
 	const ssml = `
 <speak>
-<prosody pitch="${pitch}%">
+<prosody>
 <emphasis level="strong">${props.titleText}<break time="250ms"/>${props.subtitleText}</emphasis>
 </prosody>
 </speak>`;
@@ -28,6 +27,7 @@ export const createTextToSpeechAudio = async (
 	 * * Determine directory name from SSML, directory in bucket, and voice name, to make a really unique fileName.
 	 * * Only hashing the SSML makes it easy to find specific voice audios in Firebase storage.
 	 */
+	console.log(props.pitch);
 	const ssmlHash = md5(`${ssml} ${props.speakingRate} ${props.pitch}`);
 	const filePathInBucket = `${audioDirectoryInBucket}/${selectedVoice.name}-${ssmlHash}.mp3`;
 
@@ -49,6 +49,7 @@ export const createTextToSpeechAudio = async (
 			audioEncoding: 'LINEAR16', // Higher quality than 'MP3'
 			effectsProfileId: ['large-home-entertainment-class-device'], // Sounds better than small-devices
 			speakingRate: props.speakingRate,
+			pitch: props.pitch,
 		},
 	});
 	// Upload the file to firebase
