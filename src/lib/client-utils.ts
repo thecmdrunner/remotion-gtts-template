@@ -12,7 +12,6 @@ export const getTTSFromServer = async (
 				headers: {'Content-Type': 'application/json'},
 			})
 		).json();
-
 		return result.url;
 	} catch (err) {
 		console.error(err);

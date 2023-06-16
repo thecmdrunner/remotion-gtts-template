@@ -20,6 +20,7 @@ export const mySchema = z.object({
 	),
 	pitch: z.number().min(-20).max(20),
 	speakingRate: z.number().min(0.25).max(4),
+	audioUrl: z.string(),
 });
 
 export const HelloWorld: React.FC<RequestMetadata> = (props) => {

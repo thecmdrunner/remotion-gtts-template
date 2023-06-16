@@ -1,8 +1,15 @@
+import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Composition} from 'remotion';
 import {HelloWorld, mySchema} from './HelloWorld';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {getTTSFromServer} from './lib/client-utils';
+import {FALLBACK_AUDIO_URL} from './server/TextToSpeech/constants';
+
+// Create a React Query client to wrap all compositions with.
+const queryClient = new QueryClient();
 
 export const RemotionRoot: React.FC = () => {
+	const FPS = 30;
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
 		throw new Error(
 			'GOOGLE_APPLICATION_CREDENTIALS environment variable is missing. Read the instructions in README.md file and complete the setup.'
@@ -36,9 +43,6 @@ export const RemotionRoot: React.FC = () => {
 			'FIREBASE_APP_ID environment variable is missing. Read the instructions in README.md file and complete the setup.'
 		);
 
-	// Create a React Query client to wrap all compositions with.
-	const queryClient = new QueryClient();
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Composition
@@ -46,7 +50,7 @@ export const RemotionRoot: React.FC = () => {
 				schema={mySchema}
 				component={HelloWorld}
 				durationInFrames={300}
-				fps={30}
+				fps={FPS}
 				width={1920}
 				height={1080}
 				defaultProps={{
@@ -58,6 +62,21 @@ export const RemotionRoot: React.FC = () => {
 					voice: 'Woman 1 (US)' as const,
 					pitch: 0,
 					speakingRate: 1,
+					audioUrl: FALLBACK_AUDIO_URL,
+				}}
+				calculateMetadata={async ({props}) => {
+					const audioUrl = await getTTSFromServer({...props}).then();
+					const audioDurationInSeconds = await getAudioDurationInSeconds(
+						audioUrl
+					);
+					const calculatedVideoDuration = Math.ceil(audioDurationInSeconds);
+					return {
+						props: {
+							...props,
+							audioUrl,
+						},
+						durationInFrames: 30 + calculatedVideoDuration * FPS,
+					};
 				}}
 			/>
 		</QueryClientProvider>

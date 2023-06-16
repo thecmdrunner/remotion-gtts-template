@@ -1,27 +1,9 @@
 import {interpolate, staticFile} from 'remotion';
-import {useState} from 'react';
-import {
-	Audio,
-	continueRender,
-	delayRender,
-	spring,
-	useCurrentFrame,
-	useVideoConfig,
-} from 'remotion';
-import {getTTSFromServer} from '../lib/client-utils';
+import {Audio, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {RequestMetadata} from '../lib/interfaces';
 import {FALLBACK_AUDIO_URL} from '../server/TextToSpeech/constants';
-import {useQuery} from '@tanstack/react-query';
 
 export const Text: React.FC<RequestMetadata> = (props) => {
-	const [handle] = useState(() => delayRender());
-
-	const {data: audioUrl} = useQuery({
-		queryKey: ['audioUrl'],
-		queryFn: () => getTTSFromServer({...props}),
-		onSettled: () => continueRender(handle),
-	});
-
 	const {titleText, titleColor, subtitleText} = props;
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
@@ -29,14 +11,14 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 
 	return (
 		<>
-			{audioUrl && (
+			{props.audioUrl && (
 				<Audio
 					id="TTS Audio"
 					about="TTS Audio"
 					src={
-						audioUrl === FALLBACK_AUDIO_URL
+						props.audioUrl === FALLBACK_AUDIO_URL
 							? staticFile(FALLBACK_AUDIO_URL)
-							: audioUrl
+							: props.audioUrl
 					}
 				/>
 			)}
