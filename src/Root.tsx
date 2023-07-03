@@ -4,8 +4,6 @@ import {HelloWorld, mySchema} from './HelloWorld';
 import {getTTSFromServer} from './lib/client-utils';
 import {waitForNoInput} from './debounce';
 
-// Create a React Query client to wrap all compositions with.
-
 export const RemotionRoot: React.FC = () => {
 	const FPS = 30;
 	if (!process.env.GOOGLE_APPLICATION_CREDENTIALS)
