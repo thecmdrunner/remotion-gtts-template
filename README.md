@@ -132,7 +132,7 @@ https://user-images.githubusercontent.com/38887390/232199560-d275def7-d147-4f29-
 npm i
 ```
 
-#### Start Preview
+#### Start Remotion Studio
 
 ```console
 npm start
@@ -140,7 +140,7 @@ npm start
 
 #### Running on Cloud development environments:
 
-- To run Remotion Preview or Renders, the server also needs to be started. Refer to `src/render.ts` to learn how to do so.
+- To run Remotion Studio or Renders, the server also needs to be started. Refer to `src/render.ts` to learn how to do so.
 
 ##### GitHub Codespaces:
 
@@ -150,7 +150,7 @@ npm start
 gh codespace ports visibility 5050:public -c $CODESPACE_NAME
 ```
 
-  Replace `5050` with your own port, if you have changed it to something else. To avoid doing this every time, you can forward the port manually ahead of time.
+Replace `5050` with your own port, if you have changed it to something else. To avoid doing this every time, you can forward the port manually ahead of time.
 
 - Then reload the VS Code window by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and selecting **Developer: Reload Window**
 
@@ -178,4 +178,4 @@ Found an issue with Remotion? [File an issue here](https://github.com/JonnyBurge
 
 ## License
 
-Notice that for some entities a company license is needed. Read [the terms here](https://github.com/JonnyBurger/remotion/blob/main/LICENSE.md).
+Note that for some entities a company license is needed. Read [the terms here](https://github.com/JonnyBurger/remotion/blob/main/LICENSE.md).

@@ -14,7 +14,7 @@ export const AUDIO_SERVERS = {
 	remote: `ENTER_YOUR_REMOTE_SERVER_URL`, // For running on remote server/ Github Codespaces
 } as const;
 
-export const SERVER_URL = AUDIO_SERVERS.local; // Be sure to select your server URL here before launching preview or render.
+export const SERVER_URL = AUDIO_SERVERS.local; // Be sure to select your server URL here before launching Remotion Studio or render.
 
 export const audioDirectoryInBucket = 'remotion-gtts';
 export const FALLBACK_AUDIO_URL = '/error_audio.mp3';

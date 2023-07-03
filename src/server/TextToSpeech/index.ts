@@ -16,10 +16,9 @@ export const createTextToSpeechAudio = async (
 	if (!voices[props.voice]) throw new Error('Voice not found');
 	const selectedVoice = voices[props.voice];
 
-	const pitch = props.pitch * 100;
 	const ssml = `
 <speak>
-<prosody pitch="${pitch}%">
+<prosody>
 <emphasis level="strong">${props.titleText}<break time="250ms"/>${props.subtitleText}</emphasis>
 </prosody>
 </speak>`;
@@ -33,7 +32,7 @@ export const createTextToSpeechAudio = async (
 
 	// Return URL if already exists
 	const fileExists = await isAudioAlreadySynthesized(filePathInBucket);
-	if (fileExists) return createFirebaseUrl(filePathInBucket);
+	if (fileExists) return fileExists;
 
 	// Create the TTS audio
 	// https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
@@ -49,6 +48,7 @@ export const createTextToSpeechAudio = async (
 			audioEncoding: 'LINEAR16', // Higher quality than 'MP3'
 			effectsProfileId: ['large-home-entertainment-class-device'], // Sounds better than small-devices
 			speakingRate: props.speakingRate,
+			pitch: props.pitch,
 		},
 	});
 	// Upload the file to firebase
