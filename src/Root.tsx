@@ -61,7 +61,7 @@ export const RemotionRoot: React.FC = () => {
 			}}
 			calculateMetadata={async ({props, abortSignal}) => {
 				await waitForNoInput(abortSignal, 1000);
-				const audioUrl = await getTTSFromServer({...props}).then();
+				const audioUrl = await getTTSFromServer({...props});
 				const audioDurationInSeconds = await getAudioDurationInSeconds(
 					audioUrl
 				);

@@ -2,7 +2,6 @@ import express from 'express';
 import {createTextToSpeechAudio} from './TextToSpeech';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import {FALLBACK_AUDIO_URL} from './TextToSpeech/constants';
 import {RequestMetadata, ServerResponse} from '../lib/interfaces';
 
 dotenv.config();
@@ -20,12 +19,12 @@ export const startServer = () => {
 
 			const audioURL = await createTextToSpeechAudio({...data});
 
-			return res.json({url: audioURL} as ServerResponse).end();
+			return res.json({type: 'success', url: audioURL} as ServerResponse).end();
 		} catch (err) {
 			console.error(err);
 			return res
-				.status(200)
-				.json({url: FALLBACK_AUDIO_URL} as ServerResponse)
+				.status(500)
+				.json({type: 'error', error: (err as Error).message} as ServerResponse)
 				.end();
 		}
 	});

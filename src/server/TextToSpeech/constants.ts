@@ -17,7 +17,6 @@ export const AUDIO_SERVERS = {
 export const SERVER_URL = AUDIO_SERVERS.local; // Be sure to select your server URL here before launching Remotion Studio or render.
 
 export const audioDirectoryInBucket = 'remotion-gtts';
-export const FALLBACK_AUDIO_URL = '/error_audio.mp3';
 
 export const voices = {
 	'Man 1 (US)': {name: 'en-US-Neural2-D', languageCode: 'en-US'},

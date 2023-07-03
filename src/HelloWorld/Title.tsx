@@ -1,7 +1,6 @@
-import {interpolate, staticFile} from 'remotion';
+import {interpolate} from 'remotion';
 import {Audio, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {RequestMetadata} from '../lib/interfaces';
-import {FALLBACK_AUDIO_URL} from '../server/TextToSpeech/constants';
 
 export const Text: React.FC<RequestMetadata> = (props) => {
 	const {titleText, titleColor, subtitleText} = props;
@@ -9,18 +8,11 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 	const frame = useCurrentFrame();
 	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
 
+	console.log(props.audioUrl);
 	return (
 		<>
 			{props.audioUrl && (
-				<Audio
-					id="TTS Audio"
-					about="TTS Audio"
-					src={
-						props.audioUrl === FALLBACK_AUDIO_URL
-							? staticFile(FALLBACK_AUDIO_URL)
-							: props.audioUrl
-					}
-				/>
+				<Audio id="TTS Audio" about="TTS Audio" src={props.audioUrl} />
 			)}
 
 			<h1
