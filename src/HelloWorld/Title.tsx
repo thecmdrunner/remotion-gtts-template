@@ -8,7 +8,6 @@ export const Text: React.FC<RequestMetadata> = (props) => {
 	const frame = useCurrentFrame();
 	const titleTextForAnimation = titleText.split(' ').map((t) => ` ${t} `);
 
-	console.log(props.audioUrl);
 	return (
 		<>
 			{props.audioUrl && (
