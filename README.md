@@ -13,7 +13,7 @@ using Google Cloud Platform + Firebase Storage
 
 ## Things to keep in mind:
 
-1. As text for TTS changes, you may also want to programatically alter the `durationInFrames` for your `<Composition/>` using [`getAudioDurationInSeconds()`](https://www.remotion.dev/docs/get-audio-duration-in-seconds).
+1. As the text for TTS changes, you may also want to programmatically alter the `durationInFrames` for your `<Composition/>` using [`getAudioDurationInSeconds()`](https://www.remotion.dev/docs/get-audio-duration-in-seconds).
 
 2. [Special consideration must be made](#running-on-cloud-development-environments) when using cloud development services (like GitHub Codespaces, StackBlitz, etc).
 
@@ -36,10 +36,10 @@ https://user-images.githubusercontent.com/38887390/233016949-b38d3644-cfeb-48be-
 
 <!-- VIDEO /assets/firebase-register.mp4 -->
 
-- Copy the config credentials and paste into `.env.example`.  
+- Copy the config credentials and paste them into `.env.example`.  
   Then rename the file to `.env`.
 
-### 3. Enable storage, create storage bucket with your preffered location
+### 3. Enable storage, create a storage bucket with your preferred location
 
 Press: Build → Storage → Get started → Start in production mode → Next → Done
 
@@ -49,7 +49,7 @@ https://user-images.githubusercontent.com/38887390/233017269-ed1812aa-d0f1-4d3a-
 
 ### 4. Setup security rules
 
-Edit rules to allow read, write for `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
+Edit rules to allow read, and write access for the `remotion-gtts` directory (or any other directory that you have specified for `audioDirectoryInBucket` in the `constants.ts` file).
 
 <!-- ![Security rules](./assets/firebase-storage-rules.png) -->
 
