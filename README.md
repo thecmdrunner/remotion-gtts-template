@@ -2,6 +2,8 @@
 
 using Google Cloud Platform + Firebase Storage
 
+> This template showcases the use of the new [Visual Editing](https://www.remotion.dev/docs/visual-editing) features, as highlighted in the [Remotion v4 keynote](https://www.youtube.com/watch?v=NX9YTOsLGpQ).
+
 <p align="center">
   <a href="https://github.com/remotion-dev/logo">
     <picture>
