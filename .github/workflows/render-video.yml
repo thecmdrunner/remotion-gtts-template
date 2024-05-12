@@ -6,10 +6,26 @@ on:
         description: "Which text should it say?"
         required: true
         default: "Welcome to Remotion"
-      titleColor:
-        description: "Which color should it be in?"
+      subtitleText:
+        description: "Which text should it say?"
         required: true
-        default: "black"
+        default: "With these powerful tools, what will you build?"
+      voice:
+        description: "Voice name"
+        required: true
+        default: "Woman 1 (US)"
+      pitch:
+        description: "Pitch of the voice"
+        required: true
+        default: 0
+      speakingRate:
+        description: "Speaking rate of the voice"
+        required: true
+        default: 1
+      audioUrl:
+        description: "URL of the voice audio"
+        required: true
+        default: null
 jobs:
   render:
     name: Render video
