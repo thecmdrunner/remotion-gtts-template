@@ -18,8 +18,8 @@ export const mySchema = z.object({
   voice: z.enum(
     Object.keys(voices) as [VoiceType] | [VoiceType, ...VoiceType[]],
   ),
-  pitch: z.number().min(-20).max(20),
-  speakingRate: z.number().min(0.25).max(4),
+  pitch: z.coerce.number().min(-20).max(20),
+  speakingRate: z.coerce.number().min(0.25).max(4),
   audioUrl: z.string().or(z.null()),
 });
 
